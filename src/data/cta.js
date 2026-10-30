@@ -1,5 +1,8 @@
 export const TELEGRAM_VIP_LINK = 'https://t.me/+GpUBBkU0B_M3NmFk'
 
+/** Inbox that receives VIP lead form submissions */
+export const LEAD_NOTIFY_EMAIL = 'khanramish49@gmail.com'
+
 export const LEAD_FORM_COPY = {
   eyebrow: 'Limited VIP access',
   title: 'Claim your Elite Trading seat',

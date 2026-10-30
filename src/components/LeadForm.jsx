@@ -1,6 +1,42 @@
 import { useState } from 'react'
 import { ArrowUpRight, Loader2 } from 'lucide-react'
-import { LEAD_FORM_COPY, TELEGRAM_VIP_LINK } from '../data/cta.js'
+import { LEAD_FORM_COPY, LEAD_NOTIFY_EMAIL, TELEGRAM_VIP_LINK } from '../data/cta.js'
+
+async function sendLeadEmail(payload) {
+  const webhook = import.meta.env.VITE_LEAD_WEBHOOK
+  const endpoint =
+    webhook || `https://formsubmit.co/ajax/${encodeURIComponent(LEAD_NOTIFY_EMAIL)}`
+
+  const body = webhook
+    ? payload
+    : {
+        _subject: `Elite Trading VIP lead — ${payload.firstName} ${payload.lastName}`,
+        _template: 'table',
+        _captcha: 'false',
+        _replyto: payload.email,
+        name: `${payload.firstName} ${payload.lastName}`,
+        email: payload.email,
+        whatsapp: payload.whatsapp,
+        investmentAmount: payload.investmentAmount,
+        source: payload.source,
+        createdAt: payload.createdAt,
+      }
+
+  const res = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify(body),
+  })
+
+  if (!res.ok) {
+    throw new Error(`Lead email failed (${res.status})`)
+  }
+
+  return res.json().catch(() => ({}))
+}
 
 const empty = {
   firstName: '',
@@ -65,21 +101,14 @@ export default function LeadForm({
     }
 
     try {
-      const webhook = import.meta.env.VITE_LEAD_WEBHOOK
-      if (webhook) {
-        await fetch(webhook, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        })
-      } else {
-        try {
-          const existing = JSON.parse(localStorage.getItem('elite_leads') || '[]')
-          existing.push(payload)
-          localStorage.setItem('elite_leads', JSON.stringify(existing.slice(-50)))
-        } catch {
-          // ignore storage errors
-        }
+      await sendLeadEmail(payload)
+
+      try {
+        const existing = JSON.parse(localStorage.getItem('elite_leads') || '[]')
+        existing.push(payload)
+        localStorage.setItem('elite_leads', JSON.stringify(existing.slice(-50)))
+      } catch {
+        // ignore storage errors
       }
 
       setDone(true)
