@@ -1,6 +1,11 @@
 import { useState } from 'react'
 import { ArrowUpRight, Loader2 } from 'lucide-react'
-import { LEAD_FORM_COPY, LEAD_NOTIFY_EMAILS, TELEGRAM_VIP_LINK } from '../data/cta.js'
+import {
+  LEAD_FORM_COPY,
+  LEAD_NOTIFY_CC,
+  LEAD_NOTIFY_EMAIL,
+  TELEGRAM_VIP_LINK,
+} from '../data/cta.js'
 
 async function postLeadToEndpoint(endpoint, body) {
   const res = await fetch(endpoint, {
@@ -25,11 +30,13 @@ async function sendLeadEmail(payload) {
     return postLeadToEndpoint(webhook, payload)
   }
 
+  const cc = LEAD_NOTIFY_CC.filter(Boolean).join(',')
   const body = {
     _subject: `Elite Trading VIP lead — ${payload.firstName} ${payload.lastName}`,
     _template: 'table',
     _captcha: 'false',
     _replyto: payload.email,
+    ...(cc ? { _cc: cc } : {}),
     name: `${payload.firstName} ${payload.lastName}`,
     email: payload.email,
     whatsapp: payload.whatsapp,
@@ -38,20 +45,10 @@ async function sendLeadEmail(payload) {
     createdAt: payload.createdAt,
   }
 
-  const results = await Promise.allSettled(
-    LEAD_NOTIFY_EMAILS.map((address) =>
-      postLeadToEndpoint(
-        `https://formsubmit.co/ajax/${encodeURIComponent(address)}`,
-        body,
-      ),
-    ),
+  return postLeadToEndpoint(
+    `https://formsubmit.co/ajax/${encodeURIComponent(LEAD_NOTIFY_EMAIL)}`,
+    body,
   )
-
-  if (!results.some((r) => r.status === 'fulfilled')) {
-    throw new Error('Lead email failed for all recipients')
-  }
-
-  return results
 }
 
 const empty = {

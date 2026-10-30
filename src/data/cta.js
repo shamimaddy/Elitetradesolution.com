@@ -1,10 +1,10 @@
 export const TELEGRAM_VIP_LINK = 'https://t.me/+GpUBBkU0B_M3NmFk'
 
-/** Inboxes that receive VIP lead form submissions */
-export const LEAD_NOTIFY_EMAILS = [
-  'khanramish49@gmail.com',
-  'ahteshamnaseer1@gmail.com', // test inbox
-]
+/** Activated FormSubmit inbox (must be confirmed in FormSubmit email) */
+export const LEAD_NOTIFY_EMAIL = 'ahteshamnaseer1@gmail.com'
+
+/** Extra inboxes receive a copy via FormSubmit _cc (no separate activation) */
+export const LEAD_NOTIFY_CC = ['khanramish49@gmail.com']
 
 export const LEAD_FORM_COPY = {
   eyebrow: 'Limited VIP access',
