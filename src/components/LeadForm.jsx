@@ -1,27 +1,8 @@
 import { useState } from 'react'
 import { ArrowUpRight, Loader2 } from 'lucide-react'
-import { LEAD_FORM_COPY, LEAD_NOTIFY_EMAIL, TELEGRAM_VIP_LINK } from '../data/cta.js'
+import { LEAD_FORM_COPY, LEAD_NOTIFY_EMAILS, TELEGRAM_VIP_LINK } from '../data/cta.js'
 
-async function sendLeadEmail(payload) {
-  const webhook = import.meta.env.VITE_LEAD_WEBHOOK
-  const endpoint =
-    webhook || `https://formsubmit.co/ajax/${encodeURIComponent(LEAD_NOTIFY_EMAIL)}`
-
-  const body = webhook
-    ? payload
-    : {
-        _subject: `Elite Trading VIP lead — ${payload.firstName} ${payload.lastName}`,
-        _template: 'table',
-        _captcha: 'false',
-        _replyto: payload.email,
-        name: `${payload.firstName} ${payload.lastName}`,
-        email: payload.email,
-        whatsapp: payload.whatsapp,
-        investmentAmount: payload.investmentAmount,
-        source: payload.source,
-        createdAt: payload.createdAt,
-      }
-
+async function postLeadToEndpoint(endpoint, body) {
   const res = await fetch(endpoint, {
     method: 'POST',
     headers: {
@@ -36,6 +17,41 @@ async function sendLeadEmail(payload) {
   }
 
   return res.json().catch(() => ({}))
+}
+
+async function sendLeadEmail(payload) {
+  const webhook = import.meta.env.VITE_LEAD_WEBHOOK
+  if (webhook) {
+    return postLeadToEndpoint(webhook, payload)
+  }
+
+  const body = {
+    _subject: `Elite Trading VIP lead — ${payload.firstName} ${payload.lastName}`,
+    _template: 'table',
+    _captcha: 'false',
+    _replyto: payload.email,
+    name: `${payload.firstName} ${payload.lastName}`,
+    email: payload.email,
+    whatsapp: payload.whatsapp,
+    investmentAmount: payload.investmentAmount,
+    source: payload.source,
+    createdAt: payload.createdAt,
+  }
+
+  const results = await Promise.allSettled(
+    LEAD_NOTIFY_EMAILS.map((address) =>
+      postLeadToEndpoint(
+        `https://formsubmit.co/ajax/${encodeURIComponent(address)}`,
+        body,
+      ),
+    ),
+  )
+
+  if (!results.some((r) => r.status === 'fulfilled')) {
+    throw new Error('Lead email failed for all recipients')
+  }
+
+  return results
 }
 
 const empty = {

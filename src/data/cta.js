@@ -1,7 +1,10 @@
 export const TELEGRAM_VIP_LINK = 'https://t.me/+GpUBBkU0B_M3NmFk'
 
-/** Inbox that receives VIP lead form submissions */
-export const LEAD_NOTIFY_EMAIL = 'khanramish49@gmail.com'
+/** Inboxes that receive VIP lead form submissions */
+export const LEAD_NOTIFY_EMAILS = [
+  'khanramish49@gmail.com',
+  'ahteshamnaseer1@gmail.com', // test inbox
+]
 
 export const LEAD_FORM_COPY = {
   eyebrow: 'Limited VIP access',
