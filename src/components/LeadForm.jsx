@@ -1,20 +1,38 @@
 import { useState } from 'react'
 import { ArrowUpRight, Loader2 } from 'lucide-react'
-import { LEAD_FORM_COPY, TELEGRAM_VIP_LINK } from '../data/cta.js'
+import {
+  LEAD_FORM_COPY,
+  LEAD_NOTIFY_EMAIL,
+  TELEGRAM_VIP_LINK,
+  WEB3FORMS_ACCESS_KEY,
+} from '../data/cta.js'
 
 async function sendLeadEmail(payload) {
-  const res = await fetch('/api/lead', {
+  const res = await fetch('https://api.web3forms.com/submit', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify({
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: `Elite Trading VIP lead — ${payload.firstName} ${payload.lastName}`,
+      from_name: 'Elite Trading Website',
+      replyto: payload.email,
+      to: LEAD_NOTIFY_EMAIL,
+      name: `${payload.firstName} ${payload.lastName}`,
+      email: payload.email,
+      whatsapp: payload.whatsapp,
+      investmentAmount: payload.investmentAmount,
+      source: payload.source,
+      createdAt: payload.createdAt,
+      botcheck: '',
+    }),
   })
 
   const data = await res.json().catch(() => ({}))
-  if (!res.ok || data.ok === false) {
-    throw new Error(data.error || `Lead email failed (${res.status})`)
+  if (!res.ok || data.success === false) {
+    throw new Error(data.message || `Lead email failed (${res.status})`)
   }
 
   return data

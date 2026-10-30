@@ -3,6 +3,12 @@ export const TELEGRAM_VIP_LINK = 'https://t.me/+GpUBBkU0B_M3NmFk'
 /** Inbox that should receive VIP lead form submissions */
 export const LEAD_NOTIFY_EMAIL = 'khanramish49@gmail.com'
 
+/**
+ * Web3Forms public access key (safe in client-side code).
+ * Free plan requires browser submissions, not server IP calls.
+ */
+export const WEB3FORMS_ACCESS_KEY = '03ac699f-91f7-4ede-b303-580b81df7201'
+
 export const LEAD_FORM_COPY = {
   eyebrow: 'Limited VIP access',
   title: 'Claim your Elite Trading seat',
