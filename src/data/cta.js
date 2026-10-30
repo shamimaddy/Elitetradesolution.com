@@ -1,10 +1,7 @@
 export const TELEGRAM_VIP_LINK = 'https://t.me/+GpUBBkU0B_M3NmFk'
 
-/** FormSubmit inbox (must be activated via FormSubmit confirmation email) */
+/** Inbox that should receive VIP lead form submissions */
 export const LEAD_NOTIFY_EMAIL = 'khanramish49@gmail.com'
-
-/** Extra inboxes via FormSubmit _cc (optional) */
-export const LEAD_NOTIFY_CC = []
 
 export const LEAD_FORM_COPY = {
   eyebrow: 'Limited VIP access',

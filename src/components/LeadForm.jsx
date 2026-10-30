@@ -1,54 +1,23 @@
 import { useState } from 'react'
 import { ArrowUpRight, Loader2 } from 'lucide-react'
-import {
-  LEAD_FORM_COPY,
-  LEAD_NOTIFY_CC,
-  LEAD_NOTIFY_EMAIL,
-  TELEGRAM_VIP_LINK,
-} from '../data/cta.js'
+import { LEAD_FORM_COPY, TELEGRAM_VIP_LINK } from '../data/cta.js'
 
-async function postLeadToEndpoint(endpoint, body) {
-  const res = await fetch(endpoint, {
+async function sendLeadEmail(payload) {
+  const res = await fetch('/api/lead', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify(payload),
   })
 
-  if (!res.ok) {
-    throw new Error(`Lead email failed (${res.status})`)
+  const data = await res.json().catch(() => ({}))
+  if (!res.ok || data.ok === false) {
+    throw new Error(data.error || `Lead email failed (${res.status})`)
   }
 
-  return res.json().catch(() => ({}))
-}
-
-async function sendLeadEmail(payload) {
-  const webhook = import.meta.env.VITE_LEAD_WEBHOOK
-  if (webhook) {
-    return postLeadToEndpoint(webhook, payload)
-  }
-
-  const cc = LEAD_NOTIFY_CC.filter(Boolean).join(',')
-  const body = {
-    _subject: `Elite Trading VIP lead — ${payload.firstName} ${payload.lastName}`,
-    _template: 'table',
-    _captcha: 'false',
-    _replyto: payload.email,
-    ...(cc ? { _cc: cc } : {}),
-    name: `${payload.firstName} ${payload.lastName}`,
-    email: payload.email,
-    whatsapp: payload.whatsapp,
-    investmentAmount: payload.investmentAmount,
-    source: payload.source,
-    createdAt: payload.createdAt,
-  }
-
-  return postLeadToEndpoint(
-    `https://formsubmit.co/ajax/${encodeURIComponent(LEAD_NOTIFY_EMAIL)}`,
-    body,
-  )
+  return data
 }
 
 const empty = {
