@@ -1,0 +1,92 @@
+export const REVIEWS = [
+  {
+    id: 'r1',
+    name: 'Winpenny P.',
+    rating: 5,
+    text: 'Clean entries, clear reasoning, and no hype. I finally feel like I am executing a real plan instead of guessing. The Telegram room is structured and the updates are timely.',
+  },
+  {
+    id: 'r2',
+    name: 'Manika S.',
+    rating: 5,
+    text: 'The setup explanations are premium. I like that risk is emphasized on every trade and the process is consistent. This feels like a serious trading desk, not a random signal group.',
+  },
+  {
+    id: 'r3',
+    name: 'Patrick K.',
+    rating: 4,
+    text: 'Great signals and solid guidance. Sometimes I wish there were a few more examples for the same setup across different pairs, but the quality is still top tier.',
+  },
+  {
+    id: 'r4',
+    name: 'Jason T.',
+    rating: 5,
+    text: 'The biggest win for me is the clarity. Pre-market context, levels, and execution notes are delivered in a way that is easy to follow on mobile.',
+  },
+  {
+    id: 'r5',
+    name: 'Gmobucks',
+    rating: 5,
+    text: 'I joined for signals but stayed for the education. The breakdown of what to look for before entry changed how I trade and helped me avoid overtrading.',
+  },
+  {
+    id: 'r6',
+    name: 'Mullins S.',
+    rating: 5,
+    text: 'Very professional. The community feels focused and the content is delivered with purpose. I also love the simple checklists for execution.',
+  },
+  {
+    id: 'r7',
+    name: 'Fatweh A.',
+    rating: 5,
+    text: 'Premium experience. The trades are not spammy, and the commentary helps you learn. Risk management reminders are a huge plus.',
+  },
+  {
+    id: 'r8',
+    name: 'Daniel P.',
+    rating: 4,
+    text: 'Strong group and consistent calls. I would love a weekly recap post pinned in the channel, but overall the quality is excellent.',
+  },
+  {
+    id: 'r9',
+    name: 'Ambrose Z.',
+    rating: 5,
+    text: 'The best part is the discipline. I used to chase moves—now I wait for confirmations. The system has made me calmer and more consistent.',
+  },
+  {
+    id: 'r10',
+    name: 'Dane M.',
+    rating: 5,
+    text: 'High-end presentation, clean layouts, and the delivery feels premium. You can tell a lot of work goes into the structure and communication.',
+  },
+  {
+    id: 'r11',
+    name: 'Jeef K.',
+    rating: 5,
+    text: 'The entries are precise and the stop/target guidance is practical. I have been able to track performance with much more confidence.',
+  },
+  {
+    id: 'r12',
+    name: 'Henry V.',
+    rating: 4,
+    text: 'Amazing value. Occasionally I miss a trade due to time zones, but the overall approach is solid and the learning component is real.',
+  },
+  {
+    id: 'r13',
+    name: 'Harsh B.',
+    rating: 5,
+    text: 'I have tried multiple groups. This is the first one that feels organized and intentional. The trade rationale helps you develop your own eye.',
+  },
+  {
+    id: 'r14',
+    name: 'Jair A.',
+    rating: 5,
+    text: 'I like the calm tone and the focus on process. The channel keeps me accountable and prevents impulsive trades.',
+  },
+  {
+    id: 'r15',
+    name: 'Matthew B.',
+    rating: 4,
+    text: 'Trust-building experience. The setup-to-execution flow is consistent and the results reflect the discipline. Highly recommended for serious traders.',
+  },
+]

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elite Trading · Form Preview</title>
+    <style>
+      :root {
+        --base-950: #161e54;
+        --base-900: #121944;
+        --action-red: #e62727;
+        --ink-100: #ffffff;
+        --ink-200: #e5e7eb;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        background: var(--base-950);
+        color: var(--ink-100);
+      }
+
+      .hero-radial {
+        pointer-events: none;
+        position: fixed;
+        inset: 0;
+        opacity: 0.5;
+        background:
+          radial-gradient(60% 60% at 10% 10%, rgba(230, 39, 39, 0.14) 0%, rgba(230, 39, 39, 0) 55%),
+          radial-gradient(55% 55% at 85% 15%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 60%),
+          radial-gradient(60% 70% at 50% 100%, rgba(230, 39, 39, 0.08) 0%, rgba(230, 39, 39, 0) 60%);
+      }
+
+      .wrap {
+        position: relative;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 40px 16px 64px;
+      }
+
+      .page-label {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+
+      .eyebrow {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(229, 231, 235, 0.7);
+      }
+
+      .page-title {
+        margin: 8px 0 0;
+        font-size: 28px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+      }
+
+      .grid {
+        display: grid;
+        gap: 32px;
+      }
+
+      @media (min-width: 960px) {
+        .grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .section-label {
+        margin-bottom: 12px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(229, 231, 235, 0.7);
+      }
+
+      .card {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        background: var(--base-950);
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.24);
+      }
+
+      .card.bottom {
+        background: rgba(18, 25, 68, 0.8);
+      }
+
+      .card-inner {
+        position: relative;
+        padding: 24px;
+      }
+
+      .close {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: var(--base-900);
+        color: white;
+        display: grid;
+        place-items: center;
+        font-size: 18px;
+        line-height: 1;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 999px;
+        padding: 4px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.85);
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: var(--action-red);
+      }
+
+      h2 {
+        margin: 12px 40px 0 0;
+        font-size: 24px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin: 8px 0 0;
+        font-size: 14px;
+        line-height: 1.6;
+        color: rgba(229, 231, 235, 0.75);
+      }
+
+      .bottom-title {
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .bottom-sub {
+        margin: 4px 0 0;
+        font-size: 12px;
+        color: rgba(229, 231, 235, 0.7);
+      }
+
+      form {
+        display: grid;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      .row-2 {
+        display: grid;
+        gap: 12px;
+      }
+
+      @media (min-width: 480px) {
+        .row-2 {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      input {
+        width: 100%;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: var(--base-900);
+        color: var(--ink-100);
+        padding: 10px 14px;
+        font-size: 14px;
+        outline: none;
+      }
+
+      input::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      input:focus {
+        border-color: rgba(230, 39, 39, 0.6);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        border: 0;
+        border-radius: 12px;
+        background: var(--action-red);
+        color: white;
+        padding: 10px 16px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 0 0 1px rgba(230, 39, 39, 0.35), 0 10px 30px rgba(230, 39, 39, 0.18);
+      }
+
+      .btn:hover {
+        background: #c81f1f;
+      }
+
+      .disclaimer {
+        text-align: center;
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.45);
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero-radial"></div>
+    <div class="wrap">
+      <div class="page-label">
+        <div class="eyebrow">Form preview · site design</div>
+        <h1 class="page-title">Ad CTA lead form</h1>
+      </div>
+
+      <div class="grid">
+        <section>
+          <div class="section-label">1 · Form popup</div>
+          <div class="card">
+            <div class="hero-radial" style="position: absolute; opacity: 0.5"></div>
+            <div class="card-inner">
+              <div class="close" aria-hidden="true">×</div>
+              <div class="pill"><span class="dot"></span> Limited VIP access</div>
+              <h2>Claim your Elite Trading seat</h2>
+              <p class="subtitle">
+                Enter your details and join the VIP Signal Room. Get structured setups, risk notes, and live execution guidance.
+              </p>
+              <form onsubmit="event.preventDefault()">
+                <div class="row-2">
+                  <div>
+                    <label>First name</label>
+                    <input placeholder="First name" />
+                  </div>
+                  <div>
+                    <label>Last name</label>
+                    <input placeholder="Last name" />
+                  </div>
+                </div>
+                <div>
+                  <label>Email address</label>
+                  <input type="email" placeholder="you@email.com" />
+                </div>
+                <div>
+                  <label>WhatsApp number</label>
+                  <input type="tel" placeholder="+1 555 000 0000" />
+                </div>
+                <div>
+                  <label>Investment amount</label>
+                  <input placeholder="e.g. $5,000" />
+                </div>
+                <button class="btn" type="submit">Join VIP Signal Room →</button>
+                <p class="disclaimer">Trading involves risk. No results are guaranteed.</p>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-label">2 · Home page bottom CTA</div>
+          <div class="card bottom">
+            <div class="card-inner">
+              <div class="bottom-title">Get VIP access now</div>
+              <p class="bottom-sub">Submit the form and jump straight into the Signal Room.</p>
+              <form onsubmit="event.preventDefault()">
+                <div class="row-2">
+                  <div>
+                    <label>First name</label>
+                    <input placeholder="First name" />
+                  </div>
+                  <div>
+                    <label>Last name</label>
+                    <input placeholder="Last name" />
+                  </div>
+                </div>
+                <div>
+                  <label>Email address</label>
+                  <input type="email" placeholder="you@email.com" />
+                </div>
+                <div>
+                  <label>WhatsApp number</label>
+                  <input type="tel" placeholder="+1 555 000 0000" />
+                </div>
+                <div>
+                  <label>Investment amount</label>
+                  <input placeholder="e.g. $5,000" />
+                </div>
+                <button class="btn" type="submit">Join VIP Signal Room →</button>
+                <p class="disclaimer">Trading involves risk. No results are guaranteed.</p>
+              </form>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>
