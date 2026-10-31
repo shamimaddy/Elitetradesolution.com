@@ -4,7 +4,6 @@ import {
   ShieldCheck,
   Zap,
   TrendingUp,
-  Play,
   Handshake,
   BookOpen,
   Trophy,
@@ -219,15 +218,18 @@ export default function HomePage() {
               whileHover={{ scale: 1.01 }}
               transition={{ type: 'spring', stiffness: 240, damping: 20 }}
             >
-              <div className="relative aspect-video w-full rounded-2xl border border-white/10 bg-base-900/60">
-                <div className="absolute inset-0 grid place-items-center">
-                  <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-4 py-2 text-sm font-extrabold text-ink-100 backdrop-blur">
-                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-action-red/20">
-                      <Play className="h-5 w-5 text-white" />
-                    </span>
-                    Video Placeholder
-                  </div>
-                </div>
+              <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-white/10 bg-base-900/60">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  poster="/video/elite-live-sessions-poster.jpg"
+                  className="h-full w-full object-cover"
+                >
+                  <source src="/video/elite-live-sessions.mp4" type="video/mp4" />
+                </video>
               </div>
             </motion.div>
           </div>
